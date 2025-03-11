@@ -73,4 +73,4 @@ function Board({ title }) {
   )
 }
 
-export default Board 
+export default Board

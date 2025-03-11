@@ -21,4 +21,4 @@ function TaskCard({ task, index }) {
   )
 }
 
-export default TaskCard 
+export default TaskCard

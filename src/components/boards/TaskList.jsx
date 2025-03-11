@@ -24,4 +24,4 @@ function TaskList({ list }) {
   )
 }
 
-export default TaskList 
+export default TaskList
