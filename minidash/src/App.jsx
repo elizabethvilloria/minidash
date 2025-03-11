@@ -1,26 +1,8 @@
 import React from 'react'
-import { DragDropContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@hello-pangea/dnd'
 import Navbar from './components/layout/Navbar'
 import Board from './components/boards/Board'
 
 function App() {
-  const mouseSensor = useSensor(MouseSensor, {
-    // Require the mouse to move by 10 pixels before starting a drag
-    activationConstraint: {
-      distance: 10,
-    },
-  })
-  
-  const touchSensor = useSensor(TouchSensor, {
-    // Press delay of 250ms, with tolerance of 5px of movement
-    activationConstraint: {
-      delay: 250,
-      tolerance: 5,
-    },
-  })
-
-  const sensors = useSensors(mouseSensor, touchSensor)
-
   const [lists, setLists] = React.useState([
     { 
       id: 'todo', 
@@ -46,47 +28,51 @@ function App() {
     }
   ])
 
-  const onDragEnd = (result) => {
-    console.log('Drag ended:', result) // Add this to debug
-    const { destination, source } = result
+  const handleMoveTask = (taskId, newListId) => {
+    setLists(currentLists => {
+      // Find the task in any list
+      let task
+      let sourceListId
+      
+      currentLists.forEach(list => {
+        const foundTask = list.tasks.find(t => t.id === taskId)
+        if (foundTask) {
+          task = foundTask
+          sourceListId = list.id
+        }
+      })
 
-    if (!destination) return
+      if (!task) return currentLists
 
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return
-    }
-
-    const sourceList = lists.find(list => list.id === source.droppableId)
-    const destList = lists.find(list => list.id === destination.droppableId)
-    const draggedTask = sourceList.tasks[source.index]
-
-    const newLists = lists.map(list => {
-      if (list.id === sourceList.id) {
-        const newTasks = Array.from(list.tasks)
-        newTasks.splice(source.index, 1)
-        return { ...list, tasks: newTasks }
-      }
-      if (list.id === destList.id) {
-        const newTasks = Array.from(list.tasks)
-        newTasks.splice(destination.index, 0, draggedTask)
-        return { ...list, tasks: newTasks }
-      }
-      return list
+      return currentLists.map(list => {
+        // Remove from old list
+        if (list.id === sourceListId) {
+          return {
+            ...list,
+            tasks: list.tasks.filter(t => t.id !== taskId)
+          }
+        }
+        // Add to new list
+        if (list.id === newListId) {
+          return {
+            ...list,
+            tasks: [...list.tasks, task]
+          }
+        }
+        return list
+      })
     })
-
-    setLists(newLists)
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <main className="container mx-auto py-8">
-        <DragDropContext sensors={sensors} onDragEnd={onDragEnd}>
-          <Board title="Daily Operations" lists={lists} />
-        </DragDropContext>
+        <Board 
+          title="Daily Operations" 
+          lists={lists} 
+          onMoveTask={handleMoveTask}
+        />
       </main>
     </div>
   )
