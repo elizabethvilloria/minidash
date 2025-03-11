@@ -7,24 +7,17 @@ function App() {
     { 
       id: 'todo', 
       title: 'To Do', 
-      tasks: [
-        { id: '1', title: 'Check inventory', description: 'Count coffee beans and supplies' },
-        { id: '2', title: 'Staff meeting', description: 'Weekly team sync at 9am' }
-      ] 
+      tasks: []
     },
     { 
       id: 'inProgress', 
       title: 'In Progress', 
-      tasks: [
-        { id: '3', title: 'Train new barista', description: 'Show coffee making techniques' }
-      ] 
+      tasks: []
     },
     { 
       id: 'done', 
       title: 'Done', 
-      tasks: [
-        { id: '4', title: 'Order supplies', description: 'Ordered new coffee cups' }
-      ] 
+      tasks: []
     }
   ])
 
@@ -78,4 +71,4 @@ function App() {
   )
 }
 
-export default App 
+export default App
