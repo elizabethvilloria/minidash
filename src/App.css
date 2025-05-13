@@ -2,7 +2,6 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 .logo {
@@ -33,10 +32,26 @@
   }
 }
 
+/* Card styles */
 .card {
   padding: 2em;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.read-the-docs {
+/* Utility classes */
+.text-muted {
   color: #888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 1em;
+  }
 }
