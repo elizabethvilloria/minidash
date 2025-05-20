@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Draggable } from 'react-beautiful-dnd'
 
 function TaskCard({ task, index }) {
@@ -46,6 +47,17 @@ function TaskCard({ task, index }) {
       )}
     </Draggable>
   )
+}
+
+TaskCard.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    priority: PropTypes.oneOf(['high', 'medium', 'low']),
+    dueDate: PropTypes.string
+  }).isRequired,
+  index: PropTypes.number.isRequired
 }
 
 export default TaskCard
