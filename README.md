@@ -7,6 +7,7 @@ A modern, lightweight dashboard application built with React and Vite.
 - Responsive design
 - Fast performance with Vite
 - Styled with Tailwind CSS
+- Error boundary for graceful error handling
 
 ## Getting Started
 
