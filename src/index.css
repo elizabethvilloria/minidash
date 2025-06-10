@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Error Boundary Styles */
+.error-boundary {
+  @apply min-h-screen flex flex-col items-center justify-center p-4 text-center bg-gray-50;
+}
+
+.error-boundary h2 {
+  @apply text-2xl font-bold text-red-600 mb-4;
+}
+
+.error-boundary p {
+  @apply text-gray-600 mb-6;
+}
+
+.error-boundary-button {
+  @apply px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200;
+}
